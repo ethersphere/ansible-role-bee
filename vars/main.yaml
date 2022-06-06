@@ -1,0 +1,33 @@
+---
+# Package options
+bee_package: bee
+
+# Service options.
+bee_restart_handler_state: restarted
+
+# Bee repo URL.
+bee_repo_url: https://repos.ethswarm.org
+
+# Bee repo key
+bee_repo_keyring: /usr/share/keyrings/ethersphere-archive-keyring.gpg
+
+# Used only for Debian/Ubuntu. Switch 'stable' to 'nightly' if needed.
+bee_apt_repository: "deb [arch={{ arch }} signed-by={{ bee_repo_keyring }}] {{ bee_repo_url }}/deb {{ ansible_distribution_release }} stable"
+bee_apt_ignore_key_error: yes
+bee_apt_gpg_key: "{{ bee_repo_url }}/public.key"
+bee_arch_map:
+  x86_64:
+    rename: "amd64"
+  aarch64:
+    rename: "arm64"
+  arm:
+    rename: "armhf"
+
+# Used only for RedHat/CentOS/Fedora.
+bee_yum_repo_url: "{{ bee_repo_url }}/rpm"
+bee_yum_gpg_key: "{{ bee_repo_url }}/pgp-key.public"
+
+bee_default:
+  config: /etc/bee/bee.yaml
+  data-dir: /var/lib/bee
+  password-file: /var/lib/bee/password

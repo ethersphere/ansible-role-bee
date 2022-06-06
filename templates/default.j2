@@ -1,0 +1,4 @@
+# Configuration for bee daemon
+{% for key in bee_default.keys() %}
+BEE_{{ key | upper | regex_replace('-', '_') }}={{ bee_default[key] }}
+{% endfor %}

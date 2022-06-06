@@ -1,0 +1,16 @@
+---
+namespace: "ethersphere"
+name: "bee"
+version: "0.1.0"
+readme: "README.md"
+authors:
+  - "devops (https://www.ethswarm.org/)"
+description: Manage bee
+license_file: "LICENSE"
+tags:
+  - bee
+  - swarm
+  - blockchain
+  - decentralisation
+  - storage
+repository: "https://github.com/vandot/ansible-k3sup"

@@ -1,0 +1,88 @@
+---
+- include_tasks: setup-RedHat.yml
+  when: ansible_os_family == 'RedHat'
+
+- include_tasks: setup-Debian.yml
+  when: ansible_os_family == 'Debian'
+
+- name: Add bee system user and group. 
+  user:
+    name: bee
+    home: /var/lib/bee
+    shell: /sbin/nologin
+    system: yes
+
+- name: Set password for Bee node.
+  copy:
+    content: "{{ password }}"
+    dest: /var/lib/bee/password
+    owner: bee
+    group: bee
+    mode: '0600'
+  when: password is defined
+  notify: restart bee
+
+- name: Ensure /var/lib/bee/keys directory exists.
+  file:
+    path: /var/lib/bee/keys
+    state: directory
+    owner: bee
+    group: bee
+    mode: '0755'
+  when: swarm_key is defined
+
+- name: Copy swarm key to host.
+  copy:
+    content: "{{ swarm_key }}"
+    dest: /var/lib/bee/keys/swarm.key
+    owner: bee
+    group: bee
+    mode: '0600'
+  when: swarm_key is defined
+  notify: restart bee
+
+- name: Install Bee (Ansible <2.12).
+  package:
+    name: "{{ bee_package }}"
+    state: "{{ bee_package_state }}"
+  notify: restart bee
+  ignore_errors: "{{ ansible_check_mode }}"
+  when: "ansible_version.full is version_compare('2.12', '<')"
+
+- name: Install Bee (Ansible >=2.12).
+  package:
+    name: "{{ bee_package }}"
+    state: "{{ bee_package_state }}"
+    allow_downgrade: true
+  notify: restart bee
+  ignore_errors: "{{ ansible_check_mode }}"
+  when: "ansible_version.full is version_compare('2.12', '>=')"
+
+- name: Ensure /etc/bee/ directory exists.
+  file:
+    path: /etc/bee
+    state: directory
+    mode: '0755'
+  when: bee_config.keys() | length > 0
+
+- name: Configure Bee daemon.
+  copy:
+    content: "{{ bee_config | to_nice_yaml }}"
+    dest: /etc/bee/bee.yaml
+    mode: '0644'
+  when: bee_config.keys() | length > 0
+  notify: restart bee
+
+- name: Set defaults for Bee daemon.
+  template:
+    src: templates/default.j2
+    dest: /etc/default/bee
+    mode: '0644'
+  notify: restart bee
+
+- name: Ensure Bee is started and enabled at boot.
+  service:
+    name: bee
+    state: "{{ bee_service_state }}"
+    enabled: "{{ bee_service_enabled }}"
+  ignore_errors: "{{ ansible_check_mode }}"

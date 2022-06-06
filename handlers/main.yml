@@ -1,0 +1,4 @@
+---
+- name: restart bee
+  service: "name=bee state={{ bee_restart_handler_state }}"
+  ignore_errors: "{{ ansible_check_mode }}"
