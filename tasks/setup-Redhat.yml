@@ -1,8 +1,8 @@
 ---
 - name: Add Bee repository.
-  yum_repository:
+  ansible.builtin.yum_repository:
     name: ethersphere
     description: Ethersphere Repo
     baseurl: "{{ bee_yum_repo_url }}"
-    gpgcheck: yes
+    gpgcheck: true
     gpgkey: "{{ bee_yum_gpg_key }}"

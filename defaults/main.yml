@@ -4,7 +4,7 @@ bee_package_state: present
 
 # Service options.
 bee_service_state: started
-bee_service_enabled: yes
+bee_service_enabled: true
 
 # Bee repo key
 bee_repo_key_id: 9A863065472A8ACFD2F68ADB9625CC6265230910
