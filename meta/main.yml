@@ -1,20 +1,22 @@
+---
 galaxy_info:
   role_name: bee
+  namespace: ethersphere
   author: devops 
   description: Ansible role for installing bee, a Swarm client implemented in Go
 
-  license: BSD-3-Clause 
+  license: BSD-3-Clause
 
   min_ansible_version: "2.2"
 
   platforms:
-  - name: Ubuntu 
+  - name: Ubuntu
     versions:
     - all
-  - name: Debian 
+  - name: Debian
     versions:
     - all
-  - name: Amazon 
+  - name: Amazon
     versions:
     - all
   - name: EL 

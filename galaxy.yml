@@ -1,6 +1,6 @@
 ---
-namespace: "ethersphere"
 name: "bee"
+namespace: "ethersphere"
 version: "0.1.0"
 readme: "README.md"
 authors:
@@ -13,4 +13,4 @@ tags:
   - blockchain
   - decentralisation
   - storage
-repository: "https://github.com/vandot/ansible-k3sup"
+repository: "https://github.com/ethersphere/ansible-role-bee"
