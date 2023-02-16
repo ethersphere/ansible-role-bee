@@ -27,7 +27,7 @@
 
 - name: Add Bee apt key.
   ansible.builtin.shell: >
-    curl -fsSL {{ bee_apt_gpg_key }} | gpg --dearmor -o /usr/share/keyrings/ethersphere-archive-keyring.gpg
+    curl -fsSL {{ bee_apt_gpg_key }} | gpg --dearmor -o {{ bee_repo_keyring }}
   args:
     warn: false
 
