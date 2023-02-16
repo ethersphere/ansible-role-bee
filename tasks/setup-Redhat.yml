@@ -4,5 +4,5 @@
     name: ethersphere
     description: Ethersphere Repo
     baseurl: "{{ bee_yum_repo_url }}"
-    gpgcheck: true
-    gpgkey: "{{ bee_yum_gpg_key }}"
+    enabled: true
+    gpgcheck: false

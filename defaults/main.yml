@@ -2,12 +2,9 @@
 # Package options
 bee_package_state: present
 
-# Service options.
+# Service options
 bee_service_state: started
 bee_service_enabled: true
 
 # Bee repo key
-bee_repo_key_id: 9A863065472A8ACFD2F68ADB9625CC6265230910
-
-# Used only for Debian/Ubuntu. Switch 'stable' to 'nightly' if needed.
-bee_apt_release_channel: stable
+bee_repo_key_id: 478F02E89ABD4530
