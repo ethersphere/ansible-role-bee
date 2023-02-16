@@ -22,25 +22,14 @@
     state: present
   when: ansible_distribution == 'Ubuntu' or ansible_distribution_version is version('20.04', '>=')
 
-- name: Add Bee apt key.
-  ansible.builtin.apt_key:
-    url: "{{ bee_apt_gpg_key }}"
-    id: "{{ bee_repo_key_id }}"
-    state: present
-    keyring: /usr/share/keyrings/ethersphere-archive-keyring.gpg
-  register: add_repository_key
-  ignore_errors: "{{ bee_apt_ignore_key_error }}"
-
-- name: Ensure curl is present (on older systems without SNI).
+- name: Ensure curl is present.
   ansible.builtin.package: name=curl state=present
-  when: add_repository_key is failed
 
-- name: Add Bee apt key (alternative for older systems without SNI).
+- name: Add Bee apt key.
   ansible.builtin.shell: >
     curl -fsSL {{ bee_apt_gpg_key }} | gpg --dearmor -o /usr/share/keyrings/ethersphere-archive-keyring.gpg
   args:
     warn: false
-  when: add_repository_key is failed
 
 - name: Add Bee repository.
   ansible.builtin.apt_repository:
