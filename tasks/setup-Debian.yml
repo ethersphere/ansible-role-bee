@@ -26,10 +26,7 @@
   ansible.builtin.package: name=curl state=present
 
 - name: Add Bee apt key.
-  ansible.builtin.shell: >
-    curl -fsSL {{ bee_apt_gpg_key }} | gpg --dearmor -o {{ bee_repo_keyring }}
-  args:
-    warn: false
+  ansible.builtin.shell: curl -fsSL {{ bee_apt_gpg_key }} | gpg --dearmor -o {{ bee_repo_keyring }}
 
 - name: Add Bee repository.
   ansible.builtin.apt_repository:
