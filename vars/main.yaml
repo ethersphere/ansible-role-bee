@@ -12,9 +12,10 @@ bee_repo_url: https://repo.ethswarm.org
 bee_repo_keyring: /usr/share/keyrings/ethersphere-apt-keyring.gpg
 
 # Used only for Debian/Ubuntu. Switch 'stable' to 'nightly' if needed.
-bee_apt_repository: "deb [arch={{ arch }} signed-by={{ bee_repo_keyring }}] {{ bee_repo_url }}/apt * *"
+bee_apt_repo_url: "{{ bee_repo_url }}/apt"
+bee_apt_repository: "deb [arch={{ arch }} signed-by={{ bee_repo_keyring }}] {{ bee_apt_repo_url }} * *"
 bee_apt_ignore_key_error: true
-bee_apt_gpg_key: "{{ bee_repo_url }}/apt/gpg.key"
+bee_apt_gpg_key: "{{ bee_apt_repo_url }}/gpg.key"
 bee_arch_map:
   x86_64:
     rename: "amd64"
@@ -25,6 +26,7 @@ bee_arch_map:
 
 # Used only for RedHat/CentOS/Fedora.
 bee_yum_repo_url: "{{ bee_repo_url }}/yum"
+bee_yum_gpg_key: "{{ bee_yum_repo_url }}/gpg.key"
 
 bee_default:
   config: /etc/bee/bee.yaml

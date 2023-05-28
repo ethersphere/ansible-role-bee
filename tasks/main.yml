@@ -29,7 +29,7 @@
     owner: bee
     group: bee
     mode: '0755'
-  when: swarm_key is defined
+  when: swarm_key is defined or libp2p_key is defined or pss_key is defined
 
 - name: Copy swarm key to host.
   ansible.builtin.copy:
@@ -39,6 +39,26 @@
     group: bee
     mode: '0600'
   when: swarm_key is defined
+  notify: restart bee
+
+- name: Copy libp2p key to host.
+  ansible.builtin.copy:
+    content: "{{ libp2p_key }}"
+    dest: /var/lib/bee/keys/libp2p_v2.key
+    owner: bee
+    group: bee
+    mode: '0600'
+  when: libp2p_key is defined
+  notify: restart bee
+
+- name: Copy pss key to host.
+  ansible.builtin.copy:
+    content: "{{ pss_key }}"
+    dest: /var/lib/bee/keys/pss.key
+    owner: bee
+    group: bee
+    mode: '0600'
+  when: pss_key is defined
   notify: restart bee
 
 - name: Install Bee (Ansible <2.12).
